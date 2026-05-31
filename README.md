@@ -2,7 +2,7 @@
 
 A short, opinionated questionnaire that takes confused car buyers from "I have no idea" to "here are my top 5 cars and why" in under 60 seconds.
 
-Live demo: _(Vercel link here once deployed)_
+Live demo: https://cardekho-findmycar.vercel.app/
 
 ---
 
