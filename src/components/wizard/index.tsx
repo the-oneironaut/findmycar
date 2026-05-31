@@ -5,6 +5,7 @@ import { BudgetStep } from "./budget-step";
 import { UseCaseStep } from "./use-case-step";
 import { PriorityStep } from "./priority-step";
 import { FuelStep } from "./fuel-step";
+import { ResultsStep } from "./results-step";
 
 export type WizardData = {
   budget: [number, number];
@@ -20,20 +21,22 @@ export function Wizard() {
   return (
     <div className="w-full">
       {/* Progress indicator */}
-      <div className="flex items-center justify-center gap-2 mb-8">
-        {[0, 1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className={`h-2 rounded-full transition-all ${
-              i === step
-                ? "w-8 bg-primary"
-                : i < step
-                  ? "w-8 bg-primary/40"
-                  : "w-8 bg-muted"
-            }`}
-          />
-        ))}
-      </div>
+      {step < 4 && (
+        <div className="flex items-center justify-center gap-2 mb-8">
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all ${
+                i === step
+                  ? "w-8 bg-primary"
+                  : i < step
+                    ? "w-8 bg-primary/40"
+                    : "w-8 bg-muted"
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Steps */}
       {step === 0 && (
@@ -93,6 +96,18 @@ export function Wizard() {
             setData((prev) => ({ ...prev, fuel }));
             setStep(2);
           }}
+        />
+      )}
+
+      {step === 4 && data.budget && data.useCases && data.priorities && data.fuel && (
+        <ResultsStep
+          data={{
+            budget: data.budget,
+            useCases: data.useCases,
+            priorities: data.priorities,
+            fuel: data.fuel,
+          }}
+          onBack={() => setStep(3)}
         />
       )}
     </div>
