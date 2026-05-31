@@ -3,10 +3,14 @@
 import { useState } from "react";
 import { BudgetStep } from "./budget-step";
 import { UseCaseStep } from "./use-case-step";
+import { PriorityStep } from "./priority-step";
+import { FuelStep } from "./fuel-step";
 
 export type WizardData = {
   budget: [number, number];
   useCases: string[];
+  priorities: string[];
+  fuel: string;
 };
 
 export function Wizard() {
@@ -53,7 +57,42 @@ export function Wizard() {
             setData(next);
             setStep(2);
           }}
-          onBack={() => setStep(0)}
+          onBack={(useCases) => {
+            setData((prev) => ({ ...prev, useCases }));
+            setStep(0);
+          }}
+        />
+      )}
+
+      {step === 2 && (
+        <PriorityStep
+          defaultValue={data.priorities}
+          onNext={(priorities) => {
+            const next = { ...data, priorities };
+            console.log("[Wizard] Step 3 complete:", next);
+            setData(next);
+            setStep(3);
+          }}
+          onBack={(priorities) => {
+            setData((prev) => ({ ...prev, priorities }));
+            setStep(1);
+          }}
+        />
+      )}
+
+      {step === 3 && (
+        <FuelStep
+          defaultValue={data.fuel}
+          onNext={(fuel) => {
+            const next = { ...data, fuel };
+            console.log("[Wizard] Step 4 complete:", next);
+            setData(next);
+            setStep(4);
+          }}
+          onBack={(fuel) => {
+            setData((prev) => ({ ...prev, fuel }));
+            setStep(2);
+          }}
         />
       )}
     </div>

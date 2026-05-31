@@ -16,7 +16,7 @@ const USE_CASES = [
 interface UseCaseStepProps {
   defaultValue?: string[];
   onNext: (useCases: string[]) => void;
-  onBack: () => void;
+  onBack: (useCases: string[]) => void;
 }
 
 export function UseCaseStep({ defaultValue = [], onNext, onBack }: UseCaseStepProps) {
@@ -62,7 +62,7 @@ export function UseCaseStep({ defaultValue = [], onNext, onBack }: UseCaseStepPr
       </div>
 
       <div className="flex justify-between">
-        <Button variant="ghost" size="lg" onClick={onBack}>
+        <Button variant="ghost" size="lg" onClick={() => onBack(selected)}>
           ← Back
         </Button>
         <Button size="lg" disabled={selected.length === 0} onClick={() => onNext(selected)}>
